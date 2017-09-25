@@ -1,4 +1,4 @@
-Ejemplo de Promise.All
+//Ejemplo de Promise.All
 
 var fs = require('fs');
 

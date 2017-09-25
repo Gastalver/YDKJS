@@ -418,6 +418,8 @@
         <item url="file://$PROJECT_DIR$/dist/PromiseFlow.js" />
         <item url="file://$PROJECT_DIR$/dist/PromiseAll.js" />
         <item url="file://$PROJECT_DIR$/dist/generator1.js" />
+        <item url="file://$PROJECT_DIR$/dist/generator2.js" />
+        <item url="file://$PROJECT_DIR$/dist/generator3.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
@@ -857,6 +859,8 @@
       <root url="file://$PROJECT_DIR$/dist/PromiseFlow.js" />
       <root url="file://$PROJECT_DIR$/dist/PromiseAll.js" />
       <root url="file://$PROJECT_DIR$/dist/generator1.js" />
+      <root url="file://$PROJECT_DIR$/dist/generator2.js" />
+      <root url="file://$PROJECT_DIR$/dist/generator3.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
