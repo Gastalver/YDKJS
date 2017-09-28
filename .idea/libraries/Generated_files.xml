@@ -421,6 +421,10 @@
         <item url="file://$PROJECT_DIR$/dist/generator2.js" />
         <item url="file://$PROJECT_DIR$/dist/generator3.js" />
         <item url="file://$PROJECT_DIR$/dist/generatorMultipleIterators.js" />
+        <item url="file://$PROJECT_DIR$/dist/generatorIteratorsEntrelazados.js" />
+        <item url="file://$PROJECT_DIR$/dist/generatoringValues.js" />
+        <item url="file://$PROJECT_DIR$/dist/generatoringValues2.js" />
+        <item url="file://$PROJECT_DIR$/dist/iterables.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
@@ -863,6 +867,10 @@
       <root url="file://$PROJECT_DIR$/dist/generator2.js" />
       <root url="file://$PROJECT_DIR$/dist/generator3.js" />
       <root url="file://$PROJECT_DIR$/dist/generatorMultipleIterators.js" />
+      <root url="file://$PROJECT_DIR$/dist/generatorIteratorsEntrelazados.js" />
+      <root url="file://$PROJECT_DIR$/dist/generatoringValues.js" />
+      <root url="file://$PROJECT_DIR$/dist/generatoringValues2.js" />
+      <root url="file://$PROJECT_DIR$/dist/iterables.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
