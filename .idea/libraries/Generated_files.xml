@@ -24,10 +24,14 @@
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/now.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/pad.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/seq.js" />
+        <item url="file://$PROJECT_DIR$/dist/controlFlowGEN.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/nth.js" />
+        <item url="file://$PROJECT_DIR$/dist/controlFlowGEN2.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/sum.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/min.js" />
+        <item url="file://$PROJECT_DIR$/dist/controlFlowGENyPROM2.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/tap.js" />
+        <item url="file://$PROJECT_DIR$/dist/promise2.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/zip.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/ceil.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/find.js" />
@@ -425,6 +429,8 @@
         <item url="file://$PROJECT_DIR$/dist/generatoringValues.js" />
         <item url="file://$PROJECT_DIR$/dist/generatoringValues2.js" />
         <item url="file://$PROJECT_DIR$/dist/iterables.js" />
+        <item url="file://$PROJECT_DIR$/dist/iterables2.js" />
+        <item url="file://$PROJECT_DIR$/dist/controlFlowGENyPROM.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
@@ -470,10 +476,14 @@
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/now.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/pad.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/seq.js" />
+      <root url="file://$PROJECT_DIR$/dist/controlFlowGEN.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/nth.js" />
+      <root url="file://$PROJECT_DIR$/dist/controlFlowGEN2.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/sum.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/min.js" />
+      <root url="file://$PROJECT_DIR$/dist/controlFlowGENyPROM2.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/tap.js" />
+      <root url="file://$PROJECT_DIR$/dist/promise2.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/zip.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/ceil.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/find.js" />
@@ -871,6 +881,8 @@
       <root url="file://$PROJECT_DIR$/dist/generatoringValues.js" />
       <root url="file://$PROJECT_DIR$/dist/generatoringValues2.js" />
       <root url="file://$PROJECT_DIR$/dist/iterables.js" />
+      <root url="file://$PROJECT_DIR$/dist/iterables2.js" />
+      <root url="file://$PROJECT_DIR$/dist/controlFlowGENyPROM.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/ms/index.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/common.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/glob/glob.js" />
