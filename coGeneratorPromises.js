@@ -42,9 +42,9 @@ var extraetitulo = function(codigo){
 
 co(function *generador(){
     "use strict";
-    var codigo1 = yield capturacodigo('www.forodivorcio.com');
+    var codigo1 = yield capturacodigo('www.libertaddigital.com');
     console.log('PROMESA UNO TERMINADA: ' + codigo1);
-    var codigo2 = yield capturacodigo('www.gastalverabogados.com');
+    var codigo2 = yield capturacodigo('www.abc.es');
     console.log('PROMESA DOS TERMINADA: ' + codigo2);
     var codigo3 = yield leearchivo('texto2.txt');
     console.log('EJECUTADA FUNCION LEERARCHIVO: '+ codigo3);
