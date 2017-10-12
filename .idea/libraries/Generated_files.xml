@@ -257,8 +257,10 @@
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/iteratee.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padChars.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overSome.js" />
+        <item url="file://$PROJECT_DIR$/dist/mongooseValidators.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padStart.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
+        <item url="file://$PROJECT_DIR$/dist/coertion.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
@@ -424,6 +426,7 @@
         <item url="file://$PROJECT_DIR$/dist/valor_vs_referencia.js" />
         <item url="file://$PROJECT_DIR$/dist/natives.js" />
         <item url="file://$PROJECT_DIR$/dist/promise1.js" />
+        <item url="file://$PROJECT_DIR$/dist/borrarBD.js" />
         <item url="file://$PROJECT_DIR$/dist/PromiseRace.js" />
         <item url="file://$PROJECT_DIR$/dist/PromiseFlow.js" />
         <item url="file://$PROJECT_DIR$/dist/PromiseAll.js" />
@@ -715,8 +718,10 @@
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/iteratee.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padChars.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overSome.js" />
+      <root url="file://$PROJECT_DIR$/dist/mongooseValidators.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padStart.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
+      <root url="file://$PROJECT_DIR$/dist/coertion.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
@@ -882,6 +887,7 @@
       <root url="file://$PROJECT_DIR$/dist/valor_vs_referencia.js" />
       <root url="file://$PROJECT_DIR$/dist/natives.js" />
       <root url="file://$PROJECT_DIR$/dist/promise1.js" />
+      <root url="file://$PROJECT_DIR$/dist/borrarBD.js" />
       <root url="file://$PROJECT_DIR$/dist/PromiseRace.js" />
       <root url="file://$PROJECT_DIR$/dist/PromiseFlow.js" />
       <root url="file://$PROJECT_DIR$/dist/PromiseAll.js" />

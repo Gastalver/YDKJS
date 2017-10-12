@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const ExpedienteSchema = new Schema({
 
     archivado: {type: Boolean, default: false},
-    serie:{ type: String, default: '', trim:true,
+    serie:{ type: String, set: aMayusculas,   default: '', trim:true,
         validate: {
         validator: function validadorSerie(s){
             "use strict";
@@ -17,7 +17,7 @@ const ExpedienteSchema = new Schema({
         message: '{VALUE} no es una serie válida. Debe ser una letra entre A y Z, o ninguna.'
         }
         },
-    año: { type: Number, default: (new Date()).getFullYear(),
+    año: { type: Number,
         validate: {
         validator: function validadorAño(a) {
             "use strict";
@@ -28,9 +28,22 @@ const ExpedienteSchema = new Schema({
         }
     },
     numero: {type: Number},
-    asunto: { type: String, default: ''},
+    asunto: { type: String, set: aMayusculas, validate:{
+        validator: function validadorAsunto(as){
+            "use strict"
+            // Si no existe o contiene algún carácter que no sea letras, espacio o barra /, devuelve false
+            return (!as)? false : !(/[^//a-zA-Z\s]+/i.test(as))
+        },
+        message: '{VALUE} no es un asunto válido. Es obligatorio introducir uno. Sólo admite letras, espacio y /'
+    }},
     fechaApertura  : { type : Date} // Default no que se actualizaría
-});
+}, // OPCIONES DEL SCHEMA
+    { runSettersOnQuery: true, // Usa los setters en los Query.
+        getters: true, // Usa los getters siempre.
+        validateBeforeSave: false, // Sin validación automática, sólo manual.
+        timestamps: { createdAt: 'fechaCreacion', updatedAt: 'fechaActualizacion'}, // AÑade campos timestamp automáticamente, con esos nombre.
+        strict: false, // Al hacer update y findoneandUpdate actualiza el schema padre y el hijo, no solo el padre.
+    });
 
 ExpedienteSchema.statics = {
 
@@ -41,22 +54,9 @@ ExpedienteSchema.statics = {
     * @api private
     * */
 
-referencia: function(serie,año,numero){
-    var s,a,n = null;
-    // ¿Se nos indica serie?
-       if(!!serie == null){
-           s = null // Si no hay serie, la serie quedará vacía
-       }
-       else {
-           this.findOne({'serie': serie}).exec().then( // Si hay serie, comprobar si ya hay una igual registrada.
-               function(resultado){
-                   if (!resultado) {
-                       s = serie
-                   }
-               }
-           )
+dameNum: function(serie,año){
+return this.find
 
-       }
 
    },
     /**
@@ -168,6 +168,12 @@ ExpedienteSchema.methods = {
     }
 };
 
+function aMayusculas(v){
+    return v.toUpperCase();
+}
 
+function aminusculas(v){
+    return v.toLowerCase();
+}
 
 mongoose.model('Expediente', ExpedienteSchema);
