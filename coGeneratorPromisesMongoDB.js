@@ -40,8 +40,8 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         n='';
         as= 45;
 
-        //1º VALIDA, para consumir los mínimos recursos.
-        //2º CREA DOCUMENTO.
+        //TODO incluir en validación que serie es string, año number y asunto string. (¿En modelo?)
+        //1º CREA DOCUMENTO.
 
         var nuevoExpte = new Expediente();
 
