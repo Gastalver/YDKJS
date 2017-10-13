@@ -7,35 +7,69 @@ const Schema = mongoose.Schema;
 const ExpedienteSchema = new Schema({
 
     archivado: {type: Boolean, default: false},
-    serie:{ type: String, set: aMayusculas,   default: '', trim:true,
-        validate: {
-        validator: function validadorSerie(s){
-            "use strict";
-            // Si no es una cadena vacía o una sola letra entre la A y la Z devuelve false.
-            return (((s.length < 2) && /[A-Z]/i.test(s)) || (s ===''));
-        },
-        message: '{VALUE} no es una serie válida. Debe ser una letra entre A y Z, o ninguna.'
-        }
-        },
-    año: { type: Number,
-        validate: {
-        validator: function validadorAño(a) {
-            "use strict";
-            // Si no son cuatro dígitos devuelve false.
-            return /^\d{1,4}$/.test(a);
-        },
-            message: '{VALUE}no es un año válido. Debe ser un número entre 0 y 9999 o vacío (año actual)'
-        }
+
+    serie:{ type: String,
+            set: aMayusculas, trim:true,
+            validate: {
+                validator: function validadorSerie(s){
+                    "use strict";
+                    // Si es una cadena vacía (caso frecuente) se valida rápido.
+                    if(s=='') return true;
+                    // Si no, solo admitimos String.
+                    if (typeof(s)=== 'string') {
+                        // Y solo admitimos un carácter, si tiene más no vale.
+                        if (s.length>1) return false;
+                        // Por último solo admitimos las letras A-Z.
+                        return /[A-Z]/i.test(serie)
+                    }
+                    else {
+                        return false
+                    }
+                },
+                message: '{VALUE} no es una serie válida. Debe ser una letra entre A y Z, o ninguna.'
+            }
     },
+
+    año: {  type: Number,
+            validate: {
+                validator: function validadorAño(a) {
+                    "use strict";
+                    // Si es una cadena vacía (caso frecuente), validado automáticamente. Se usará el año actual.
+                    if (a == '') return true
+                    // Si no, sólo admitimos números.
+                    if(typeof(a)=='number'){
+                        // Que estén entre 0 y 9999.
+                        return ((a >=0) && (a<=9999))
+                    } else {
+                        return false
+                    }
+                },
+            message: '{VALUE} no es un año válido. Debe ser un número entre 0 y 9999 o vacío (año actual)'
+            }
+    },
+
     numero: {type: Number},
-    asunto: { type: String, set: aMayusculas, validate:{
-        validator: function validadorAsunto(as){
-            "use strict"
-            // Si no existe o contiene algún carácter que no sea letras, espacio o barra /, devuelve false
-            return (!as)? false : !(/[^//a-zA-Z\s]+/i.test(as))
-        },
-        message: '{VALUE} no es un asunto válido. Es obligatorio introducir uno. Sólo admite letras, espacio y /'
-    }},
+
+    asunto: {type: String,
+             set: aMayusculas,
+             validate:{
+                 validator: function validadorAsunto(as){
+                     "use strict";
+                     // Solo admitimos cadenas de texto
+                     if (typeof(as)=='string'){
+                         // Que no estén vacías
+                         if (as.length == 0) return false
+                         // Y que no contengan caracteres distintos a letras de A a Z o barra o espacio en blanco o punto o guion medio
+                         return !(/[^a-zA-ZáéíóúÁÉÍÓÚ//\s.-]+/i.test(as))
+                     }
+                     else {
+                         return false
+                     }
+                 },
+                 message: '{VALUE} no es un asunto válido. Es obligatorio introducir uno. Sólo admite letras, espacio y /'
+             }
+    },
+
     fechaApertura  : { type : Date} // Default no que se actualizaría
 }, // OPCIONES DEL SCHEMA
     { runSettersOnQuery: true, // Usa los setters en los Query.
@@ -55,9 +89,18 @@ ExpedienteSchema.statics = {
     * */
 
 dameNum: function(serie,año){
-return this.find
-
-
+       this.find({'serie': serie,'año': año},'numero').sort({numero:-1}).limit(1).exec().then(
+           function fulfilled(v) {
+               if (v.length==0){
+                   return 1
+               } else {
+                    return v[0].numero
+               }
+           },
+           function rejected(err){
+               console.log(err)
+           }
+       )
    },
     /**
      * Cuenta Vivos / Archivados
@@ -67,8 +110,7 @@ return this.find
      */
 
     cuentaVivos: function () {
-        return this.count({archivado: false})
-            .exec(); //  TODO Callback para gestionar errores o logs.
+        return this.count({archivado: false}).exec(); //  TODO Callback para gestionar errores o logs.
     },
 
     /**

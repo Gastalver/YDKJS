@@ -259,9 +259,10 @@
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overSome.js" />
         <item url="file://$PROJECT_DIR$/dist/mongooseValidators.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padStart.js" />
-        <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
         <item url="file://$PROJECT_DIR$/dist/coertion.js" />
+        <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
+        <item url="file://$PROJECT_DIR$/dist/mongooseStatics.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/restFrom.js" />
@@ -720,9 +721,10 @@
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overSome.js" />
       <root url="file://$PROJECT_DIR$/dist/mongooseValidators.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/padStart.js" />
-      <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
       <root url="file://$PROJECT_DIR$/dist/coertion.js" />
+      <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/overArgs.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
+      <root url="file://$PROJECT_DIR$/dist/mongooseStatics.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/restFrom.js" />

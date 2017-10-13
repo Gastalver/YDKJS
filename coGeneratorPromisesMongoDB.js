@@ -35,12 +35,11 @@ var creaExpte = co.wrap(function *itercreaExpte(){
     try{
         // MOCK. Recibe Valores del formulario
         var s,a,n,as;
-        s=78;
-        a='ghk';
+        s='';
+        a='';
         n='';
-        as= 45;
+        as= 'AU/vivienda/renta/impago/desahucio y reclamación de cantidad';
 
-        //TODO incluir en validación que serie es string, año number y asunto string. (¿En modelo?)
         //1º CREA DOCUMENTO.
 
         var nuevoExpte = new Expediente();
@@ -50,7 +49,7 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         nuevoExpte.serie = s,
         nuevoExpte.año = (!a) ? (new Date).getFullYear() : a; // Si no hay nada, el año en curso. Luego validaré.
         nuevoExpte.asunto = as;
-        //nuevoExpte.numero =
+
 
         //3º FORZAMOS VALIDACIÓN
         var erroresValidacion,mensaje;
@@ -60,11 +59,12 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         }else{
             console.log('Errores de validación. Recargamos el formulario con el siguiente mensaje:')
             if (erroresValidacion.errors.serie) console.log('- ' + erroresValidacion.errors.serie.message);
-            if (erroresValidacion.errors.año) console.log('- ' + erroresValidacion.errors.año.message);
+            if (erroresValidacion.errors.año) console.log('- ' + erroresValidacion.errors.año.message + '.Type: ' + typeof(a));
             if (erroresValidacion.errors.asunto) console.log('- ' + erroresValidacion.errors.asunto.message);
             //console.log('Errores de Validación: ', erroresValidacion.message)
         }
-        //nuevoExpte.numero = yield Expediente.dameNum(s,a); // Función que me da el numero en base a la serie y el año.
+        nuevoExpte.numero = yield dameNum(s,a); // TODO Corregir no acepta el yield para captar el número
+        nuevoExpte.save();
     }
     catch(err){
         console.log('Errores del generador capturados por CATCH: ' + err);
@@ -75,6 +75,20 @@ var creaExpte = co.wrap(function *itercreaExpte(){
 
 })
 
-
+function dameNum(serie,año){
+    "use strict";
+    Expediente.find({'serie': serie,'año': año},'numero').sort({numero:-1}).limit(1).exec().then(
+        function fulfilled(v) {
+            if (v.length==0){
+                return 1
+            } else {
+                return v[0].numero
+            }
+        },
+        function rejected(err){
+            throw new err;
+        }
+    )
+}
 
 
