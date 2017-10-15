@@ -16,7 +16,24 @@ mongoose.connect('mongodb://localhost/YDKJS',{
     function fulfilled(){
         "use strict";
         console.log("Conexión establecida con MongoDB");
-        console.log(buscaNum('',''));
+        var serie = 'A';
+        var año = 2017;
+        Expediente.dameNum(serie,año).then(
+            function(v){
+                console.log('Expediente.dameNum\(' + serie + ',' + año + '\) arroja el valor ' + v);
+            }
+        )
+        Expediente.cuentaExpts(false).then(
+            function(v){
+                console.log('Total expedientes vivos: ' + v)
+            }
+            )
+        Expediente.cuentaExpts(true).then(
+            function(v){
+                console.log('Total expedientes archivados: ' + v)
+            }
+        )
+
 
     },
     function rejected(err){

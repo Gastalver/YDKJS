@@ -64,14 +64,19 @@ var creaExpte = co.wrap(function *itercreaExpte(){
             if (erroresValidacion.errors.asunto) console.log('- ' + erroresValidacion.errors.asunto.message);
             //console.log('Errores de Validación: ', erroresValidacion.message)
         }
+        //yield nuevoExpte.num = Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año);
         n = yield Expediente.find({'serie': nuevoExpte.serie,'año': nuevoExpte.año},'numero').sort({numero:-1}).limit(1).exec();
         if (n.length == 0) {
             nuevoExpte.numero = 1;
         } else {
             nuevoExpte.numero = n[0].numero + 1
         }
-
-        yield nuevoExpte.save();
+        Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año).then(
+            function(v){
+                console.log('El resultado del estatico es ' + v)
+            }
+        )
+        //yield nuevoExpte.save();
 
     }
     catch(err){

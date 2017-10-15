@@ -16,11 +16,11 @@ const ExpedienteSchema = new Schema({
                     // Si es una cadena vacía (caso frecuente) se valida rápido.
                     if(s=='') return true;
                     // Si no, solo admitimos String.
-                    if (typeof(s)=== 'string') {
+                    if (typeof(s)== 'string') {
                         // Y solo admitimos un carácter, si tiene más no vale.
                         if (s.length>1) return false;
                         // Por último solo admitimos las letras A-Z.
-                        return /[A-Z]/i.test(serie)
+                        return /[A-Z]/i.test(s)
                     }
                     else {
                         return false
@@ -89,28 +89,25 @@ ExpedienteSchema.statics = {
     * */
 
 dameNum: function(serie,año){
-       this.find({'serie': serie,'año': año},'numero').sort({numero:-1}).limit(1).exec().then(
-           function fulfilled(v) {
-               if (v.length==0){
-                   return 1
-               } else {
-                    return v[0].numero
-               }
-           },
-           function rejected(err){
-               console.log(err)
-           }
-       )
+    return this.find({'serie': serie,'año': año},'numero').sort({numero:-1}).limit(1).then (
+        function(recs){
+            if (recs.length == 0){
+                return 1
+            }else{
+                return recs[0].numero+1
+            }
+
+        })
    },
     /**
-     * Cuenta Vivos / Archivados
+     * Cuenta Vivos / Archivados o no.
      *
-     * @param - sin parámetros.
+     * @param - archivados -Boolean
      * @api private
      */
 
-    cuentaVivos: function () {
-        return this.count({archivado: false}).exec(); //  TODO Callback para gestionar errores o logs.
+    cuentaExpts: function (archivado) {
+        return this.count({archivado: archivado}).exec(); //  TODO Callback para gestionar errores o logs.
     },
 
     /**
