@@ -53,7 +53,8 @@ var creaExpte = co.wrap(function *itercreaExpte(){
 
         //3º FORZAMOS VALIDACIÓN
         var erroresValidacion,mensaje;
-        erroresValidacion= nuevoExpte.validateSync()
+        erroresValidacion= nuevoExpte.validateSync();
+
         if (!erroresValidacion){
             console.log('No hay errores de validación');
         }else{
@@ -63,8 +64,15 @@ var creaExpte = co.wrap(function *itercreaExpte(){
             if (erroresValidacion.errors.asunto) console.log('- ' + erroresValidacion.errors.asunto.message);
             //console.log('Errores de Validación: ', erroresValidacion.message)
         }
-        nuevoExpte.numero = yield dameNum(s,a); // TODO Corregir no acepta el yield para captar el número
-        nuevoExpte.save();
+        n = yield Expediente.find({'serie': nuevoExpte.serie,'año': nuevoExpte.año},'numero').sort({numero:-1}).limit(1).exec();
+        if (n.length == 0) {
+            nuevoExpte.numero = 1;
+        } else {
+            nuevoExpte.numero = n[0].numero + 1
+        }
+
+        yield nuevoExpte.save();
+
     }
     catch(err){
         console.log('Errores del generador capturados por CATCH: ' + err);
@@ -75,20 +83,18 @@ var creaExpte = co.wrap(function *itercreaExpte(){
 
 })
 
-function dameNum(serie,año){
+
+function dameNum(s,a) {
     "use strict";
-    Expediente.find({'serie': serie,'año': año},'numero').sort({numero:-1}).limit(1).exec().then(
-        function fulfilled(v) {
-            if (v.length==0){
-                return 1
+    Expediente.find({'serie': s,'año': a},'numero').sort({numero:-1}).limit(1).exec()
+    .then(
+        function(resultado){
+            if (resultado.length==0){
+                return (1)
             } else {
-                return v[0].numero
+                return resultado[0].numero+1
             }
-        },
-        function rejected(err){
-            throw new err;
-        }
-    )
+        })
 }
 
 

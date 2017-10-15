@@ -16,19 +16,8 @@ mongoose.connect('mongodb://localhost/YDKJS',{
     function fulfilled(){
         "use strict";
         console.log("Conexión establecida con MongoDB");
-        //buscanumero('',2017);
-        Expediente.find({'serie': '','año': 2016},'numero').sort({numero:-1}).limit(1).exec().then(
-            function fulfilled(v) {
-                if (v.length==0){
-                    console.log("No había, así que el número será 1")
-                } else {
-                    console.log(v[0].numero)
-                }
-            },
-            function rejected(err){
-                console.log(err)
-            }
-        )
+        console.log(buscaNum('',''));
+
     },
     function rejected(err){
         "use strict";
@@ -36,9 +25,15 @@ mongoose.connect('mongodb://localhost/YDKJS',{
     }
 );
 
-var buscanumero = co.wrap( function *buscaNumero(s,a){
+var buscaNum = function buscaNumero(s,a){
     "use strict";
-    var num = yield Expediente.find({'serie': s,'año': a},'numero').sort({numero:-1}).limit(1);
-    console.log(num[0].numero);
+        var num = Expediente.find({'serie': s,'año': a},'numero').sort({'numero':-1}).limit(1).exec()
+        num.then(
+            function(resultado){
+                if (resultado.length==0){
+                    return (1)
+                } else {
+                    return resultado[0].numero+1
+                }
+    })
 }
-);
