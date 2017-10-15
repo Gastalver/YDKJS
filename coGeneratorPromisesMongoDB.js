@@ -6,9 +6,10 @@ var co = require('co');
 mongoose.Promise = global.Promise;
 
 // Esquema / Modelo / Instancia modelo
-require('./model1');
+require('./model2'); // Asunto. Child Schema. Subdocumentos. // TODO arreglar problema no reconoce subesquema.
+require('./model1'); // Expediente. Parent Schema.
 const Expediente = mongoose.model('Expediente');
-
+const Asunto = mongoose.model('Asunto');
 // Conexión. Como es una promesa, usamos then para el control de flujo asíncrono, invocando un generator.
 mongoose.connect('mongodb://localhost/YDKJS',{
     useMongoClient: true
@@ -24,9 +25,6 @@ mongoose.connect('mongodb://localhost/YDKJS',{
     }
 );
 
-
-
-
 // CREA DOCUMENTO->ASIGNA DEFAULTS->VALIDA->GRABA
 
 var creaExpte = co.wrap(function *itercreaExpte(){
@@ -38,7 +36,7 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         s='';
         a='';
         n='';
-        as= 'AU/vivienda/renta/impago/desahucio y reclamación de cantidad';
+        as= 876987;
 
         //1º CREA DOCUMENTO.
 
@@ -76,6 +74,7 @@ var creaExpte = co.wrap(function *itercreaExpte(){
                 console.log('El resultado del estatico es ' + v)
             }
         )
+
         //yield nuevoExpte.save();
 
     }

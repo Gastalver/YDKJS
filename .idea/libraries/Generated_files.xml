@@ -264,6 +264,7 @@
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
         <item url="file://$PROJECT_DIR$/dist/mongooseStatics.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
+        <item url="file://$PROJECT_DIR$/dist/model2.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/restFrom.js" />
         <item url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/toFinite.js" />
@@ -726,6 +727,7 @@
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/template.js" />
       <root url="file://$PROJECT_DIR$/dist/mongooseStatics.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/takeLast.js" />
+      <root url="file://$PROJECT_DIR$/dist/model2.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/property.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/restFrom.js" />
       <root url="file://$PROJECT_DIR$/dist/node_modules/lodash/fp/toFinite.js" />

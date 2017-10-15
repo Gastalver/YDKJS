@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require('./model2');
 
 
 const ExpedienteSchema = new Schema({
@@ -50,25 +51,7 @@ const ExpedienteSchema = new Schema({
 
     numero: {type: Number},
 
-    asunto: {type: String,
-             set: aMayusculas,
-             validate:{
-                 validator: function validadorAsunto(as){
-                     "use strict";
-                     // Solo admitimos cadenas de texto
-                     if (typeof(as)=='string'){
-                         // Que no estén vacías
-                         if (as.length == 0) return false
-                         // Y que no contengan caracteres distintos a letras de A a Z o barra o espacio en blanco o punto o guion medio
-                         return !(/[^a-zA-ZáéíóúÁÉÍÓÚ//\s.-]+/i.test(as))
-                     }
-                     else {
-                         return false
-                     }
-                 },
-                 message: '{VALUE} no es un asunto válido. Es obligatorio introducir uno. Sólo admite letras, espacio y /'
-             }
-    },
+    asunto: AsuntoSchema,
 
     fechaApertura  : { type : Date} // Default no que se actualizaría
 }, // OPCIONES DEL SCHEMA
