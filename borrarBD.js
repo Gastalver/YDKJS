@@ -30,6 +30,7 @@ function borraColeccion(c){
     conxMongo.dropCollection(c).then(
         function fulfilled(){
             console.log('Coleccion ' + c + ' borrada')
+            conxMongo.close();
         },
         function rejected(err){
             console.log('Error al tratar de eliminar ' + c + ': ' + err);

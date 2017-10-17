@@ -4,7 +4,7 @@ var gimmeSomething = (function() {  // Función envoltorio que crea scope. Ejecu
     "use strict";
     var nextVal;  // Variable del scope de la funcion envoltorio.
     return {  // Devolvemos un objeto, con el método next. QUe a su vez es una función que devuelve otro objeto.
-        // Necesario para los loops 'for..of'  (TODO Estudiar Symbolos en ECMA6)
+        // Necesario para los loops 'for..of'
         [Symbol.iterator]: function () { return this; },
 
         next: function () {

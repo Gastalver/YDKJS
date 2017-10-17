@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/YDKJS',{
     function fulfilled(){
         "use strict";
         console.log("Conexión establecida con MongoDB");
-        var serie = 'A';
+        var serie = '';
         var año = 2017;
         Expediente.dameNum(serie,año).then(
             function(v){

@@ -46,4 +46,9 @@ function aminusculas(v){
     return v.toLowerCase();
 }
 
-mongoose.model('Asunto', AsuntoSchema);
+mongoose.model('Asunto', AsuntoSchema)
+
+// mongoose.model('Asunto', AsuntoSchema); Generamos el modelo en el archivo coGeneratorPromisesMongoDB.js
+
+module.exports = AsuntoSchema;
+

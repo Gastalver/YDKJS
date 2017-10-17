@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-require('./model2');
+var AsuntoSchema = require('./model2');
 
 
 const ExpedienteSchema = new Schema({
@@ -85,7 +85,7 @@ dameNum: function(serie,año){
     /**
      * Cuenta Vivos / Archivados o no.
      *
-     * @param - archivados -Boolean
+     * @param {Boolean} archivado
      * @api private
      */
 
@@ -138,22 +138,9 @@ ExpedienteSchema.methods = {
      */
 
     Guardar: function () {
-        const err = this.validateSync();  // TODO Crear validación de campos Expediente en Schema.
+        const err = this.validateSync();
         if (err && err.toString()) throw new Error(err.toString());
         return this.save();
-
-        /*
-         if (images && !images.length) return this.save();
-         const imager = new Imager(imagerConfig, 'S3');
-
-         imager.upload(images, function (err, cdnUri, files) {
-         if (err) return cb(err);
-         if (files.length) {
-         self.image = { cdnUri : cdnUri, files : files };
-         }
-         self.save(cb);
-         }, 'article');
-         */
     },
 
     /**

@@ -6,10 +6,14 @@ var co = require('co');
 mongoose.Promise = global.Promise;
 
 // Esquema / Modelo / Instancia modelo
-require('./model2'); // Asunto. Child Schema. Subdocumentos. // TODO arreglar problema no reconoce subesquema.
-require('./model1'); // Expediente. Parent Schema.
-const Expediente = mongoose.model('Expediente');
-const Asunto = mongoose.model('Asunto');
+// Requerimos modelos.
+
+require('./model1') // Expediente. Parent Schema.;
+require('./model2') // Asunto. Child Schema.
+
+const Asunto = mongoose.model('Asunto') ; // Instanciamos el modelo Asunto.
+const Expediente = mongoose.model('Expediente'); // Instanciamos el modelo Expediente.
+
 // Conexión. Como es una promesa, usamos then para el control de flujo asíncrono, invocando un generator.
 mongoose.connect('mongodb://localhost/YDKJS',{
     useMongoClient: true
@@ -33,10 +37,10 @@ var creaExpte = co.wrap(function *itercreaExpte(){
     try{
         // MOCK. Recibe Valores del formulario
         var s,a,n,as;
-        s='';
+        s='c';
         a='';
         n='';
-        as= 876987;
+        as= 'Arrendamientos Urbanos/Vivienda/Impago de renta/Desahucio y reclamación de cantidad';
 
         //1º CREA DOCUMENTO.
 
@@ -46,7 +50,9 @@ var creaExpte = co.wrap(function *itercreaExpte(){
 
         nuevoExpte.serie = s,
         nuevoExpte.año = (!a) ? (new Date).getFullYear() : a; // Si no hay nada, el año en curso. Luego validaré.
-        nuevoExpte.asunto = as;
+        nuevoExpte.asunto = {
+asunto: as
+        };
 
 
         //3º FORZAMOS VALIDACIÓN
@@ -62,20 +68,19 @@ var creaExpte = co.wrap(function *itercreaExpte(){
             if (erroresValidacion.errors.asunto) console.log('- ' + erroresValidacion.errors.asunto.message);
             //console.log('Errores de Validación: ', erroresValidacion.message)
         }
-        //yield nuevoExpte.num = Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año);
-        n = yield Expediente.find({'serie': nuevoExpte.serie,'año': nuevoExpte.año},'numero').sort({numero:-1}).limit(1).exec();
-        if (n.length == 0) {
-            nuevoExpte.numero = 1;
-        } else {
-            nuevoExpte.numero = n[0].numero + 1
-        }
+        yield Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año)
+            .then (
+                function(v){
+                    nuevoExpte.numero = v
+                } );
+
         Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año).then(
             function(v){
                 console.log('El resultado del estatico es ' + v)
             }
         )
 
-        //yield nuevoExpte.save();
+        yield nuevoExpte.save();
 
     }
     catch(err){
