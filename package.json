@@ -5,7 +5,12 @@
   "main": "index.html",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.0"
+    "babel-preset-env": "^1.6.0",
+    "bluebird": "^3.5.1",
+    "co": "^4.6.0",
+    "mongoose": "^4.12.1",
+    "promise": "^8.0.1",
+    "superagent": "^3.6.1"
   },
   "devDependencies": {},
   "scripts": {
