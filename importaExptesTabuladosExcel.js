@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
 var co = require('co');
-var transforma = require('a2u'); // TODO Corregir problemas de codificación. El buffer devuelto por readFIle no es ANSI, ni windows1250
 
 function leeArchivo(archivo){
     return new Promise(function(resolve,reject){
@@ -14,7 +13,9 @@ function leeArchivo(archivo){
 
 function convierteArchivoEnArrayObjetos(archivo){
 
-    var cadena = transforma.decode(archivo)
+    var cadenaconretornos = archivo.toString();
+    var cadena = cadenaconretornos.replace(/\r/g,'');
+
     var lineas = cadena.split('\n');
     console.log('Hay ' + lineas.length + ' filas.')
     var registros = lineas.map(function(linea){
@@ -39,13 +40,12 @@ function convierteArchivoEnArrayObjetos(archivo){
     return arrayExptes;
 }
 
+// Iter
 
-
-leeArchivo('Expedientes171017.txt')
+leeArchivo('ExpedientesUTF8.txt')  // Excel > guardar como texto (delimitado por tabulaciones) y luego NotePad++ > Codificación - Codificar en UTF8 sin BOM
     .then(
             function fulfilled(v){
                 console.log(convierteArchivoEnArrayObjetos(v))
-
             },
         function rejected(err){
                 console.log("Error al convertir en Array de Arrays: " + err)
