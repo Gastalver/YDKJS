@@ -23,7 +23,8 @@ const AsuntoSchema = new Schema({
                     }
                 },
                 message: '{VALUE} no es un asunto válido. Es obligatorio introducir uno. Sólo admite letras, espacio y /'
-            }
+            },
+            index: true
         }
     }, // OPCIONES DEL SCHEMA
     { runSettersOnQuery: true, // Usa los setters en los Query.

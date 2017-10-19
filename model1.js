@@ -7,7 +7,10 @@ var AsuntoSchema = require('./model2');
 
 const ExpedienteSchema = new Schema({
 
-    archivado: {type: Boolean, default: false},
+    archivado: {
+            type: Boolean,
+            index: true,
+            default: false},
 
     serie:{ type: String,
             set: aMayusculas, trim:true,
@@ -28,7 +31,8 @@ const ExpedienteSchema = new Schema({
                     }
                 },
                 message: '{VALUE} no es una serie válida. Debe ser una letra entre A y Z, o ninguna.'
-            }
+            },
+            index: true
     },
 
     año: {  type: Number,
@@ -46,12 +50,17 @@ const ExpedienteSchema = new Schema({
                     }
                 },
             message: '{VALUE} no es un año válido. Debe ser un número entre 0 y 9999 o vacío (año actual)'
-            }
+            },
+            index: true
     },
 
-    numero: {type: Number},
+    numero: {
+            type: Number,
+            index: true},
 
     asunto: AsuntoSchema,
+
+    cliente: [{ type: Schema.ObjectId, ref: 'Persona' }], // Ref.a ID de un documento en otra colección.
 
     fechaApertura  : { type : Date} // Default no que se actualizaría
 }, // OPCIONES DEL SCHEMA
