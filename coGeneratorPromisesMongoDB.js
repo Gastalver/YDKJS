@@ -44,35 +44,39 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         s='c';
         a='';
         n='';
-        as= 'Arrendamientos Urbanos/Vivienda/Impago de renta/Desahucio y reclamación de cantidad';
+        as= 'aBOGACÍA/atraco a mano armada';
         tip = 'Cliente'
-        nom = 'eSCAbias Pedrosa, tRINIDAD'
+        nom = 'soyprimo quelevoyahacer, gilipollas'
 
-        //1º CREA DOCUMENTO.
+        //1º CREAMOS DOCUMENTO
 
         var nuevoExpte = new Expediente();
 
-        //2º SCHEMA (DEFAULTS) Y NOSOTROS (INPUT) ASIGNAMOS VALORES a NUEVO DOCUMENTO
+        //2º SCHEMA (DEFAULTS) Y NOSOTROS (INPUT) ASIGNAMOS VALORES a NUEVOS DOCUMENTOS
 
         nuevoExpte.serie = s,
         nuevoExpte.año = (!a) ? (new Date).getFullYear() : a; // Si no hay nada, el año en curso. Luego validaré.
-        nuevoExpte.asunto = {
-            asunto: as
-        };
 
-        //3º FORZAMOS VALIDACIÓN CAMPOS serie, año, numero SCHEMA EXPEDIENTE E HIJOS (ASUNTO). -- subdoc pattern
-        var erroresValidacion,mensaje;
-        erroresValidacion= nuevoExpte.validateSync();
-
-        if (!erroresValidacion){
+        //3º VALIDAMOS CAMPOS serie, año
+        // La validación intentaremos hacerla en el cliente aunque el servidor también controle, por seguridad.
+        var erroresValidacionExpte,mensaje;
+        erroresValidacionExpte= nuevoExpte.validateSync();
+        //var erroresValidacionPersona,mensajeP
+        //erroresValidacionPersona = nuevaPersona.validateSync();
+        if (!erroresValidacionExpte){
             console.log('No hay errores de validación en Expediente');
         }else{
             console.log('Errores de validación. Recargamos el formulario con el siguiente mensaje:')
-            if (erroresValidacion.errors.serie) console.log('- ' + erroresValidacion.errors.serie.message);
-            if (erroresValidacion.errors.año) console.log('- ' + erroresValidacion.errors.año.message + '.Type: ' + typeof(a));
-            if (erroresValidacion.errors.asunto) console.log('- ' + erroresValidacion.errors.asunto.message);
-            //console.log('Errores de Validación: ', erroresValidacion.message)
+            if (erroresValidacionExpte.errors.serie) console.log('- ' + erroresValidacionExpte.errors.serie.message);
+            if (erroresValidacionExpte.errors.año) console.log('- ' + erroresValidacionExpte.errors.año.message + '.Type: ' + typeof(a));
         }
+        //if (!erroresValidacionPersona){
+          //  console.log('No hay errores de validación en Cliente');
+        //}else{
+          //  console.log('Errores de validación. Recargamos el formulario con el siguiente mensaje:')
+           // if (erroresValidacionPersona.errors.nombre) console.log('- ' + erroresValidacionExpte.errors.nombre.message);
+        //}
+
         //4º BUSCAMOS NUMERO PARA LA SERIE Y AÑO DADOS.
         yield Expediente.dameNum(nuevoExpte.serie,nuevoExpte.año)
             .then (
@@ -80,19 +84,14 @@ var creaExpte = co.wrap(function *itercreaExpte(){
                     nuevoExpte.numero = v
                 } );
 
-        //5º COMPROBAMOS SI YA EXISTE, GRABAMOS Y DEVOLVEMOS ID DE PERSONA. -- ref by id pattern
-        // ¿No podemos validar?
-        var nuevaPersona = new Persona();
-        nuevaPersona.tipoPersona = tip;
-        nuevaPersona.nombre = nom;
-        var erroresValidacionPersona = nuevaPersona.validateSync();
-        if (!erroresValidacionPersona){
-            console.log('No hay errores de validación en Persona');
-        }else {
-            console.log('Errores de validación en Persona. Recargamos el formulario con el siguiente mensaje:')
-            if (erroresValidacionPersona.errors.nombre) console.log('- ' + erroresValidacion.errors.nombre.message);
-        }
-        nuevoExpte.cliente = yield Persona.dameID(tip,nom);
+        //5º COMPROBAMOS SI LA PERSONA YA EXISTE Y SI NO CREAMOS UNA
+        var nuevoCliente = yield Persona.dameID('Cliente',nom)
+        nuevoExpte.cliente.push(nuevoCliente)
+
+        //6º COMPROBAMOS SI EL ASUNTO EXISTE Y SI NO CREAMOS UNO
+        var nuevoAsunto = yield Asunto.dameID(as);
+        nuevoExpte.asunto = nuevoAsunto
+
         yield nuevoExpte.save();
     }
     catch(err){
