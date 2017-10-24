@@ -85,14 +85,25 @@ var creaExpte = co.wrap(function *itercreaExpte(){
                 } );
 
         //5º COMPROBAMOS SI LA PERSONA YA EXISTE Y SI NO CREAMOS UNA
-        var nuevoCliente = yield Persona.dameID('Cliente',nom)
-        nuevoExpte.cliente.push(nuevoCliente)
+         yield Persona.dameID('Cliente',nom)
+             .then(
+                 function(ClienteID){
+                     nuevoExpte.cliente.push(ClienteID)
+                 }
+             )
+
 
         //6º COMPROBAMOS SI EL ASUNTO EXISTE Y SI NO CREAMOS UNO
-        var nuevoAsunto = yield Asunto.dameID(as);
-        nuevoExpte.asunto = nuevoAsunto
+        yield Asunto.dameID(as)
+            .then(
+                function(AsuntoID){
+                    nuevoExpte.asunto = AsuntoID;
+                }
+            )
 
-        yield nuevoExpte.save();
+        yield nuevoExpte.save().then(
+            console.log('Expediente supuestamente guardado')
+        );
     }
     catch(err){
         console.log('Errores del generador capturados por CATCH: ' + err);

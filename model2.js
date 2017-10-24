@@ -34,8 +34,32 @@ const AsuntoSchema = new Schema({
     });
 
 AsuntoSchema.statics = {
-};
+    dameID: function (asunto) {
+        var self = this;
+        return new Promise(function (resolve, reject) {
+                self.findOne({asunto: asunto})
+                    .then(
+                        function fulfilled(resultado) {
+                            if (resultado) {
+                                console.log('Ya existe un asunto con el nombre ' + asunto + ', su ID es ' + resultado._id)
+                                resolve (resultado)
+                            }
+                            else {
+                                self.create({nombre: asunto})
+                                    .then(
+                                        function (registro) {
+                                            resolve (registro_id)
+                                        }
+                                    )
+                            }
+                        }
+                    )
+            }
+        )
 
+
+    }
+}
 AsuntoSchema.methods = {
 };
 
