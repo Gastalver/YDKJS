@@ -29,11 +29,35 @@ const AsuntoSchema = new Schema({
     }, // OPCIONES DEL SCHEMA
     { runSettersOnQuery: true, // Usa los setters en los Query.
         getters: true, // Usa los getters siempre.
-        validateBeforeSave: false, // Sin validación automática, sólo manual.
+        validateBeforeSave: true, // Sin validación automática, sólo manual.
         strict: false, // Al hacer update y findoneandUpdate actualiza el schema padre y el hijo, no solo el padre.
     });
 
 AsuntoSchema.statics = {
+    dameID: function (asunto) {
+        var self = this;
+        return self.findOne({asunto: asunto}).exec()
+            .then(
+                function (resultado) {
+                    console.log('El tipo del resultado del primer then de dameID es ' + typeof(resultado));
+                    console.log('El valor del primer then de dameID es ' + resultado)
+                    if (resultado) {
+                        console.log('Hemos encontrado un asunto con ese nombre. Su id es :' + resultado.id)
+                        return (resultado.id)
+                    }
+                    else {
+                        console.log('No hemos encontrado un asunto igual. Creamos uno nuevo.')
+                        return self.create({asunto: asunto})
+                            .then(
+                                function(nuevoAsunto){
+                                    console.log('Creado el asunto' + asunto + '. Tiene el id ' + nuevoAsunto.id)
+                                    return nuevoAsunto.id
+                                }
+                            )
+                    }
+                }
+            )
+    }
 };
 
 AsuntoSchema.methods = {

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var AsuntoSchema = require('./model2');
+
 
 
 const ExpedienteSchema = new Schema({
@@ -58,9 +58,9 @@ const ExpedienteSchema = new Schema({
             type: Number,
             index: true},
 
-    asunto: AsuntoSchema,
+    asunto: {type: Schema.ObjectId, ref: 'Asunto'},
 
-    cliente: [{ type: Schema.ObjectId, ref: 'Persona' }], // Ref.a ID de un documento en otra colección.
+    cliente: [{ type: Schema.ObjectId, ref: 'Persona' }], // Ref.a ID de un documento en otra colección. ADmite varios.
 
     fechaApertura  : { type : Date} // Default no que se actualizaría
 }, // OPCIONES DEL SCHEMA
@@ -76,7 +76,8 @@ ExpedienteSchema.statics = {
    /**
     * Asigna Referencia
     *
-    * @param - {String, Number,Number} Serie, Año, Número
+    * @param - {String, Number} Serie, Año
+    * @returns {Number} Numero
     * @api private
     * */
 
@@ -94,8 +95,9 @@ dameNum: function(serie,año){
     /**
      * Cuenta Vivos / Archivados o no.
      *
-     * @param {Boolean} archivado
+     * @param {Boolean} archivado o no.
      * @api private
+     * @returns {Number} Número de exptes.
      */
 
     cuentaExpts: function (archivado) {
@@ -122,16 +124,13 @@ dameNum: function(serie,año){
      * @api private
      */
 
-    list: function (options) {
-        const criteria = options.criteria || {};
-        const page = options.page || 0;
-        const limit = options.limit || 30;
-        return this.find(criteria)
-            .populate('cliente', 'nombreOrazon')
+    list: function () {
+        return this.find()
+            .populate('cliente', 'nombre')
             .populate('asunto', 'asunto')
-            .sort({ referencia: -1 })
-            .limit(limit)
-            .skip(limit * page)
+            //.sort({ referencia: -1 })
+            //.limit(limit)
+            //.skip(limit * page)
             .exec();
     }
 };

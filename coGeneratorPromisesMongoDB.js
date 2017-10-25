@@ -44,9 +44,9 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         s='c';
         a='';
         n='';
-        as= 'aBOGACÍA/atraco a mano armada';
+        as= 'matrimonio/divorcio/medidas/modificación';
         tip = 'Cliente'
-        nom = 'soyprimo quelevoyahacer, gilipollas'
+        nom = 'tempompa ya, pepópn'
 
         //1º CREAMOS DOCUMENTO
 
@@ -92,13 +92,18 @@ var creaExpte = co.wrap(function *itercreaExpte(){
         var nuevoAsunto = yield Asunto.dameID(as);
         nuevoExpte.asunto = nuevoAsunto
 
-        yield nuevoExpte.save();
+        //yield nuevoExpte.save();
     }
     catch(err){
         console.log('Errores del generador capturados por CATCH: ' + err);
     }
     finally{
-        console.log('Finalizado el generador creaExpte.\n' + nuevoExpte);
+        console.log('Finalizado el generador creaExpte.\n');
+        var registros = yield Expediente.list();
+        console.log('Estos son los registros: \n' + registros)
+        console.log('registros[0].cliente[0].nombre: ' + registros[0].cliente[0].nombre)
+        console.log('registros[0].asunto.asunto: ' + registros[0].asunto.asunto)
+
     }
 
 })

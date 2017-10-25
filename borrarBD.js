@@ -38,4 +38,6 @@ function borraColeccion(c){
     )
 }
 
-borraColeccion('expedientes')
+borraColeccion('expedientes');
+borraColeccion('asuntos');
+borraColeccion('personas');

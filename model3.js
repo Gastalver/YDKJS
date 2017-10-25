@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const PersonaSchema = new Schema({
 
         nombre: {
@@ -12,11 +11,11 @@ const PersonaSchema = new Schema({
                 validator: function validadorNombreCliente(p) {
                     "use strict";
                     // Solo admitimos cadenas de texto
-                    if (typeof(p) == 'string') {
+                    if (typeof(p) === 'string') {
                         // Que no estén vacías
-                        if (p.length == 0) return false;
-                        // Y que no contengan caracteres distintos a letras de A a Z o barra o espacio en blanco o punto o guion medio
-                        return !(/[^a-zA-ZáéíóúÁÉÍÓÚ//\s.,-]+/i.test(p))
+                        if (p.length === 0) return false;
+                        // Y que no contengan caracteres distintos a letras de A a Z o barra o espacio en blanco o punto o guión medio
+                        return !(/[^a-zA-ZáéíóúÁÉÍÓÚ/\s.,-]+/i.test(p))
                     }
                     else {
                         return false
@@ -56,52 +55,61 @@ const PersonaSchema = new Schema({
     {
         runSettersOnQuery: true, // Usa los setters en los Query.
         getters: true, // Usa los getters siempre.
-        validateBeforeSave: false, // Sin validación automática, sólo manual.
-        strict: false, // Al hacer update y findoneandUpdate actualiza el schema padre y el hijo, no solo el padre.
+        validateBeforeSave: true, // Con validación automática.
+        strict: false, // Al hacer update y find one and Update actualiza el schema padre y el hijo, no solo el padre.
     });
 
+// noinspection JSValidateJSDoc
 PersonaSchema.statics = {
 
     /**
-     * Comprueba si la persona ya existe. Si existe devuelve el id, si no existe la graba y devuelve el id.
-     *
-     * @param {String} persona - Nombre o razón social de la nueva persona
-     * @api private
+     * Comprueba si existe tipopersona con nombre dado y sino lo crea, devolviendo una promise por el ID.
+     * @param {string} tipopersona
+     * @param {string} nombre
+     * @returns {Promise}
      */
-
-    dameID: function (tipopersona, persona) { // TODO Recodificar con Promise para gestionar asincronicidad correctamente.
-        var self = this;
-        var personaID = this.findOne({nombre: persona}, function (error, resultado) {
-            if (error) throw error;
-            console.log('Comprobando si la persona ya existe...');
-            if (resultado) {
-                console.log('Ya existe una persoba con el nombre ' + persona + '. Su _id es ' + resultado._id);
-                return resultado._id;
-            }
-            else {
-
-                console.log('No existe. Creando nueva persona...');
-
-                self.create({
-                    tipoPersona: tipopersona,
-                    nombre: persona
-                }, function (error, nuevaPersona) {
-                    if (error) throw error;
-                    console.log('Nueva persona creada, su Id es ' + nuevaPersona.id);
-                    return nuevaPersona._id;
-                });
-            }
-        });
-        return personaID;
+    dameID: function (tipopersona, nombre) {
+        const self = this;
+        return self.findOne({tipoPersona: tipopersona, nombre: nombre}).exec()
+            .then(
+                function (resultado) {
+                    console.log('El tipo del resultado del primer then de dameID es ' + typeof(resultado));
+                    console.log('El valor del primer then de dameID es ' + resultado);
+                    if (resultado) {
+                        console.log('Hemos encontrado un cliente con ese nombre. Su id es :' + resultado.id);
+                        return (resultado.id)
+                    }
+                    else {
+                        console.log('No hemos encontrado a nadie con ese nombre. Creamos una nueva persona.');
+                        return self.create({tipoPersona: tipopersona,nombre: nombre})
+                            .then(
+                                function(nuevaPersona){
+                                    console.log('Creado el cliente ' + nombre + '. Tiene el id ' + nuevaPersona.id);
+                                    return nuevaPersona.id
+                                }
+                            )
+                    }
+                }
+            )
     }
-}
-
+};
 PersonaSchema.methods = {};
+
+/**
+ * Convierte a Mayúsculas
+ * @param v
+ * @returns {string}
+ */
 
 function aMayusculas(v) {
     return v.toUpperCase();
 }
 
+/**
+ * Convierte a minúsculas
+ * @param v
+ * @returns {string}
+ */
 function aminusculas(v) {
     return v.toLowerCase();
 }
